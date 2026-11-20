@@ -2441,6 +2441,9 @@ if (HAVE_NRI)
 			"${RAZE_NRI_SHADER_OUTPUT_DIR}/BloomComposite.cs.spirv"
 		SOURCES ${NRI_SHADER_FILES}
 		VERBATIM)
+	# Local build fix: the Visual Studio generator would otherwise compile these
+	# .hlsl files itself with FXC (no include paths). DXC rules above handle them.
+	set_source_files_properties(${NRI_SHADER_FILES} PROPERTIES VS_TOOL_OVERRIDE "None")
 	if(RAZE_NRI_SHADER_PROFILE_RESOLVED STREQUAL "DEVELOPER")
 		set(RAZE_NRI_DIAGNOSTIC_SHADER_DIR "${RAZE_NRI_SHADER_OUTPUT_DIR}/variants/diagnostic")
 		set(RAZE_NRI_DIAGNOSTIC_SHADER_ARGS ${RAZE_NRI_COMMON_SHADER_ARGS})
